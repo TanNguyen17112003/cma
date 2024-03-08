@@ -30,8 +30,12 @@ Mở folder angular trong visual studio code
 Mở terminal
 
     yarn
+   
+    npm run create-dynamic-bundles
+
     npm start
-    
+
+   
 
 
 
