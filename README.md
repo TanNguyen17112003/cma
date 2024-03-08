@@ -41,6 +41,7 @@ Mở terminal
 
 ## Backend (aspnet-core)
 Mở Web.Host project bằng visual studio
+
 **Đối với Window**: 
 
  - Mở Package Manager Console: view > other windows > Package Manager
