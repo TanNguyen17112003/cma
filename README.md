@@ -20,7 +20,7 @@
 
 - **Yarn**: npm install --global yarn
 
-**SQL Server Management Studio_ (_SSMS_)**: Nếu chạy trên localhost
+- **SQL Server Management Studio_ (_SSMS_)**: Nếu chạy trên localhost
    
   
 
