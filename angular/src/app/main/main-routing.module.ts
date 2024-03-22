@@ -15,6 +15,10 @@ import { RouterModule } from '@angular/router';
                     {
                         path: 'test-file-upload',
                         loadChildren: () => import('./test-file-upload/test-file-upload.module').then(m => m.TestFileUploadModule)
+                    },
+                    {
+                        path: 'create-questions',
+                        loadChildren: () => import('./create-questions/create-questions.module').then(m => m.CreateQuestionsModule)
                     },                    
                     { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
                     { path: '**', redirectTo: 'dashboard' },

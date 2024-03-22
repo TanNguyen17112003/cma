@@ -1,4 +1,4 @@
-import {Component, Injector, OnInit} from '@angular/core';
+import {Component, Injector, Input, OnInit} from '@angular/core';
 import {FileUploader, FileUploaderOptions, FileItem} from 'ng2-file-upload';
 import {AppComponentBase} from "@shared/common/app-component-base";
 import {ProfileServiceProxy} from "@shared/service-proxies/service-proxies";
@@ -14,6 +14,8 @@ import {appModuleAnimation} from "@shared/animations/routerTransition";
 export class FileUploadComponent extends AppComponentBase implements OnInit {
     public uploader: FileUploader;
     private _uploaderOptions: FileUploaderOptions = {};
+    @Input() link!: string;
+    @Input() id!: string;
     hasFileOver: boolean;
 
     constructor(
@@ -29,7 +31,7 @@ export class FileUploadComponent extends AppComponentBase implements OnInit {
     }
 
     initFileUploader(): void {
-        this.uploader = new FileUploader({url: AppConsts.remoteServiceBaseUrl + '/File/UploadFile'});
+        this.uploader = new FileUploader({url: AppConsts.remoteServiceBaseUrl + this.link});
         this._uploaderOptions.autoUpload = false;
         this._uploaderOptions.authToken = 'Bearer ' + this._tokenService.getToken();
         this._uploaderOptions.removeAfterUpload = true;
@@ -37,6 +39,9 @@ export class FileUploadComponent extends AppComponentBase implements OnInit {
             file.withCredentials = false;
         };
 
+        this.uploader.onBuildItemForm = (fileItem: FileItem, form: any) => {
+            form.append('Id', this.id);
+        };
 
         this.uploader.onSuccessItem = (item, response, status) => {
             const resp = <IAjaxResponse>JSON.parse(response);
@@ -52,7 +57,6 @@ export class FileUploadComponent extends AppComponentBase implements OnInit {
     }
 
     fileOver(e:any): void {
-        console.log(this.hasFileOver);
         this.hasFileOver = e;
     }
   

@@ -8,6 +8,9 @@ import { appModuleAnimation } from '@shared/animations/routerTransition';
 })
 
 export class TestFileUploadComponent extends AppComponentBase {
+    url = '/FileUpload/UploadFile';
+
+
     constructor(
         injector: Injector
     ) {

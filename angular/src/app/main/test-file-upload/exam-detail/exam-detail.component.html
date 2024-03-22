@@ -1,0 +1,114 @@
+<div class="content d-flex flex-column flex-column-fluid">
+    <div class="mb-15">
+        <div class="btn-group me-5" dropdown>
+            <button dropdownToggle type="button" class="btn btn-light border border-dark text-start dropdown-toggle" aria-controls="dropdown-basic">
+                {{selectedSubject ? selectedSubject.name : "Môn học"}} <span class="caret"></span>
+            </button>
+            <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-basic">
+                <li role="menuitem" *ngFor="let item of subjects">
+                    <button (click)="setSubject(item)" class="dropdown-item">
+                        {{item.name}}
+                    </button>
+                </li>
+            </ul>
+        </div>
+        <div class="btn-group" dropdown>
+            <button dropdownToggle type="button" class="btn btn-light border border-dark text-start dropdown-toggle" aria-controls="dropdown-basic">
+                {{selectedType ? selectedType : "Đề thi"}} <span class="caret"></span>
+            </button>
+            <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-basic">
+                <li role="menuitem" *ngFor="let item of type">
+                    <button (click)="setType(item)" class="dropdown-item">
+                        {{item}}
+                    </button>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="input-group mb-10">
+        <input class="form-check-input me-2 mt-1" type="checkbox" [(ngModel)]="isRandom">
+        <label class="form-text">Trộn câu hỏi</label>
+    </div>
+    <div class="input-group mb-10" style="width: 15rem;">
+        <input class="form-check-input me-2 mt-1" type="checkbox" [(ngModel)]="isTimed">
+        <label class="form-text">Thời gian</label>
+        <input class="form-control form-control-sm mx-2 rounded"type="number" [(ngModel)]="time" [disabled]="!isTimed">
+        <label class="form-text">phút</label>
+    </div>
+    <div class="input-group mb-10 p-5 border border-secondary rounded">
+        <div class="input-group mb-5" style="width: 18rem;">
+            <input class="form-check-input me-2 mt-1" type="checkbox" [(ngModel)]="multipleAttempt">
+            <label class="form-text">Cho phép làm lại</label>
+            <input class="form-control form-control-sm mx-2 rounded"type="number" [(ngModel)]="attemptCount" [disabled]="!multipleAttempt">
+            <label class="form-text">lần</label>
+        </div>
+        <div class="input-group mb-5 ms-8">
+            <label class="form-text me-2">Điểm được tính</label>
+            <div class="btn-group" dropdown>
+                <button dropdownToggle type="button" class="btn btn-sm p-1 btn-light border border-secondary text-start dropdown-toggle" aria-controls="dropdown-basic">
+                    {{selectedPolicy ? selectedPolicy : policies[0]}} <span class="caret"></span>
+                </button>
+                <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-basic">
+                    <li role="menuitem" *ngFor="let item of policies">
+                        <button (click)="setPolicy(item)" class="dropdown-item">
+                            {{item}}
+                        </button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="input-group mb-10 p-5 border border-secondary rounded">
+        <div class="input-group mb-5">
+            <input class="form-check-input me-2 mt-1" type="checkbox" [(ngModel)]="allowMistakeReview">
+            <label class="form-text">Cho phép sinh viên xem lại câu sai</label>
+            <div class="input-group ms-8">
+                <input class="form-check-input me-2 mt-1" type="checkbox" [(ngModel)]="allowMistakeReviewLast">
+                <label class="form-text">Chỉ sau lần làm bài cuối</label>
+            </div>
+            <div class="input-group ms-8">
+                <input class="form-check-input me-2 mt-1" type="checkbox" [(ngModel)]="allowMistakeReviewAll">
+                <label class="form-text">Sau mỗi lần làm bài</label>
+            </div>
+        </div>
+        <div class="input-group">
+            <input class="form-check-input me-2 mt-1" type="checkbox" [(ngModel)]="allowCorrectReview">
+            <label class="form-text">Cho phép sinh viên xem lại câu đúng</label>
+            <div class="input-group ms-8">
+                <input class="form-check-input me-2 mt-1" type="checkbox" [(ngModel)]="allowCorrectReviewLast">
+                <label class="form-text">Chỉ sau lần làm bài cuối</label>
+            </div>
+        </div>
+    </div>
+    <div class="input-group mb-10">
+        <input class="form-check-input me-2 mt-1" type="checkbox" [(ngModel)]="oncePerQuestion">
+        <label class="form-text">Xem mỗi câu hỏi một lần</label>
+    </div>
+    <div class="input-group mb-10 p-5 border border-secondary rounded">
+        <div class="input-group mb-5">
+            <input class="form-check-input me-2 mt-1" type="checkbox" [(ngModel)]="requirePassword">
+            <label class="form-text">Yêu cầu mật khẩu</label>
+        </div>
+        <div class="input-group" style="width: 18rem;">
+            <input class="form-control form-control-sm mx-2 rounded" type="text" [(ngModel)]="password" [disabled]="!requirePassword">
+        </div>
+    </div>
+    <div class="hstack gap-5 w-50">
+        <div>
+            <label class="form-text">Ngày bắt đầu</label>
+            <input type="text"
+            placeholder="Ngày bắt đầu"
+            class="form-control me-5"
+            [(ngModel)]="startDate"
+            bsDatepicker>
+        </div>
+        <div>
+            <label class="form-text">Ngày kết thúc</label>
+            <input type="text"
+            placeholder="Ngày kết thúc"
+            class="form-control me-5"
+            [(ngModel)]="endDate"
+            bsDatepicker>
+        </div>
+    </div>
+</div>
