@@ -13,8 +13,9 @@ export class DetailQuestionComponent implements OnInit {
 
   ngOnInit(): void {
   }
-  @Input() questionInput: Question
-  typeList = ["Multiple choice", "True/False", "Short answer", "Essay"]
+  @Input() id: string;
+  @Input() questionInput: Question;
+  typeList = ["Multiple choice", "True/False", "Short answer", "Essay"];
   questionType: string = "Multiple choice";
   questionPoint: number = 1;
   questionContent: string = "";
