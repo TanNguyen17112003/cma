@@ -11,7 +11,6 @@ using System.Threading.Tasks;
 
 namespace MyCompanyName.AbpZeroTemplate.Web.Controllers
 {
-    [AbpMvcAuthorize(AppPermissions.Pages_FileUpload)]
     public class FileUploadController : AbpZeroTemplateControllerBase
     {
         private readonly IHostEnvironment _env;
