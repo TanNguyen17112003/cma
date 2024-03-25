@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { QuestionService } from './service/question.service';
-
+import { TabsetComponent } from 'ngx-bootstrap/tabs';
 
 @Component({
   selector: 'app-create-questions',
@@ -13,5 +13,7 @@ export class CreateQuestionsComponent implements OnInit {
 
   ngOnInit() {
   }
-  
+  navigateToQuestionTab(tabset: TabsetComponent) {
+    tabset.tabs[1].active = true;
+  }
 }
