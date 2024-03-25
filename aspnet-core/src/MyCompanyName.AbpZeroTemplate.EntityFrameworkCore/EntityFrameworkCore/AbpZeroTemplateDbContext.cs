@@ -6,18 +6,20 @@ using MyCompanyName.AbpZeroTemplate.Authorization.Roles;
 using MyCompanyName.AbpZeroTemplate.Authorization.Users;
 using MyCompanyName.AbpZeroTemplate.Chat;
 using MyCompanyName.AbpZeroTemplate.Editions;
+using MyCompanyName.AbpZeroTemplate.FileUpload;
 using MyCompanyName.AbpZeroTemplate.Friendships;
 using MyCompanyName.AbpZeroTemplate.MultiTenancy;
 using MyCompanyName.AbpZeroTemplate.MultiTenancy.Accounting;
 using MyCompanyName.AbpZeroTemplate.MultiTenancy.Payments;
 using MyCompanyName.AbpZeroTemplate.Storage;
+using Stripe;
 
 namespace MyCompanyName.AbpZeroTemplate.EntityFrameworkCore
 {
     public class AbpZeroTemplateDbContext : AbpZeroDbContext<Tenant, Role, User, AbpZeroTemplateDbContext>, IAbpPersistedGrantDbContext
     {
         /* Define an IDbSet for each entity of the application */
-
+        public virtual DbSet<ExamFile> ExamFiles { get; set; }
         public virtual DbSet<BinaryObject> BinaryObjects { get; set; }
 
         public virtual DbSet<Friendship> Friendships { get; set; }
@@ -28,7 +30,7 @@ namespace MyCompanyName.AbpZeroTemplate.EntityFrameworkCore
 
         public virtual DbSet<SubscriptionPayment> SubscriptionPayments { get; set; }
 
-        public virtual DbSet<Invoice> Invoices { get; set; }
+        //public virtual DbSet<Invoice> Invoices { get; set; }
 
         public virtual DbSet<PersistedGrantEntity> PersistedGrants { get; set; }
 

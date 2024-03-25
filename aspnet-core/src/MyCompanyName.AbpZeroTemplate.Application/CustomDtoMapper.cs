@@ -28,6 +28,7 @@ using MyCompanyName.AbpZeroTemplate.Chat.Dto;
 using MyCompanyName.AbpZeroTemplate.DynamicEntityProperties.Dto;
 using MyCompanyName.AbpZeroTemplate.Editions;
 using MyCompanyName.AbpZeroTemplate.Editions.Dto;
+using MyCompanyName.AbpZeroTemplate.FileUpload;
 using MyCompanyName.AbpZeroTemplate.Friendships;
 using MyCompanyName.AbpZeroTemplate.Friendships.Cache;
 using MyCompanyName.AbpZeroTemplate.Friendships.Dto;
@@ -41,6 +42,7 @@ using MyCompanyName.AbpZeroTemplate.Notifications.Dto;
 using MyCompanyName.AbpZeroTemplate.Organizations.Dto;
 using MyCompanyName.AbpZeroTemplate.Sessions.Dto;
 using MyCompanyName.AbpZeroTemplate.WebHooks.Dto;
+using Stripe;
 
 namespace MyCompanyName.AbpZeroTemplate
 {
@@ -164,6 +166,15 @@ namespace MyCompanyName.AbpZeroTemplate
             configuration.CreateMap<CreateUserDelegationDto, UserDelegation>();
 
             /* ADD YOUR OWN CUSTOM AUTOMAPPER MAPPINGS HERE */
+
+            
+            // PhoneBook (we will comment out other lines when the new DTOs are added)
+            configuration.CreateMap<ExamFile, ExamFileListDto>();
+            //configuration.CreateMap<AddPhoneInput, Phone>();
+            configuration.CreateMap<CreateExamFileInput, ExamFile>();
+            //configuration.CreateMap<Person, GetPersonForEditOutput>();
+            //configuration.CreateMap<Phone, PhoneInPersonListDto>();
+
         }
     }
 }

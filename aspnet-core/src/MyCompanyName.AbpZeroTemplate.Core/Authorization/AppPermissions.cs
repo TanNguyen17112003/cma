@@ -9,6 +9,8 @@
         //COMMON PERMISSIONS (FOR BOTH OF TENANTS AND HOST)
 
         public const string Pages = "Pages";
+        public const string Pages_FileUpload = "Pages.FileUpload";
+
 
         public const string Pages_DemoUiComponents = "Pages.DemoUiComponents";
         public const string Pages_Administration = "Pages.Administration";
