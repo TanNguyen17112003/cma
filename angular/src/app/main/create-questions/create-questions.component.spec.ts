@@ -1,7 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { CreateQuestionsComponent } from './create-questions.component';
-import { TestFileUploadComponent } from '../test-file-upload/test-file-upload.component';
 
 describe('CreateQuestionsComponent', () => {
   let component: CreateQuestionsComponent;
@@ -9,7 +8,7 @@ describe('CreateQuestionsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CreateQuestionsComponent, TestFileUploadComponent ]
+      declarations: [ CreateQuestionsComponent ]
     })
     .compileComponents();
   });
