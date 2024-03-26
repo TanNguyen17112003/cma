@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { QuestionService } from '../service/question.service';
 import { Question } from '../model/question';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { CreateQuestionInput, QuestionServiceProxy } from '@shared/service-proxies/service-proxies';
 @Component({
   selector: 'app-detail-question',
   templateUrl: './detail-question.component.html',
@@ -9,12 +9,16 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 })
 export class DetailQuestionComponent implements OnInit {
 
-  constructor(public questionService: QuestionService) { }
+  constructor(
+    public questionService: QuestionService,
+    public questionServiceTest: QuestionServiceProxy  
+  ) { }
 
   ngOnInit(): void {
   }
   @Input() id: string;
   @Input() questionInput: Question;
+  // questionLength = this.questionService.questionList.length;
   typeList = ["Multiple choice", "True/False", "Short answer", "Essay"];
   questionType: string = "Multiple choice";
   showDialog = false;
@@ -49,15 +53,35 @@ export class DetailQuestionComponent implements OnInit {
   closeDialog() {
     this.showDialog = false;
   }
+  // questionTest = new CreateQuestionInput({
+  //   content: this.questionContent,
+  //   answer: this.rightAnswer
+  // })
+  checkValidData () {
+    if (this.questionType === 'Multiple choice' || this.questionType === 'True/False') {
+      if (this.questionContent === "") {
+        return false;
+      }
+      if (this.rightAnswer === "") {
+        return false;
+      }
+      return true;
+    }
+    else {
+      if (this.questionContent === "") {
+        return false;
+      }
+      return true;
+    }
+  }
   setData() {
-    this.questionService.setTypeQuestion(this.questionInput, this.questionType);
-    this.questionService.setPointQuestion(this.questionInput, this.questionPoint);
-    this.questionService.setContentQuestion(this.questionInput, this.questionContent);
-    this.questionService.setRightAnswer(this.questionInput, this.rightAnswer);
-    this.questionService.setWrongAnswers(this.questionInput, this.wrongAnswers);
+    this.questionServiceTest.createQuestion(new CreateQuestionInput({
+      content: "test",
+      answer: "answer"
+    }))
     this.showSuccessDialog = true;
     setTimeout(() => {
       this.showSuccessDialog = false;
-  }, 2000);
+    }, 2000);
   }
 }
