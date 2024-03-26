@@ -8,12 +8,13 @@ import {AppSharedModule} from '@app/shared/app-shared.module';
 import { DetailQuestionComponent } from './detail-question/detail-question.component';
 import { ExamDetailComponent } from './exam-detail/exam-detail.component';
 import { EraseDiaogComponent } from './detail-question/erase-diaog/erase-diaog.component';
+import { SuccessDialogComponent } from './detail-question/success-dialog/success-dialog.component';
 
 
 
 
 @NgModule({
-  declarations: [CreateQuestionsComponent, FileUploadComponent, ExamDetailComponent, DetailQuestionComponent, EraseDiaogComponent],
+  declarations: [CreateQuestionsComponent, FileUploadComponent, ExamDetailComponent, DetailQuestionComponent, EraseDiaogComponent, SuccessDialogComponent],
   imports: [AppSharedModule, CreateQuestionsRoutingModule, EditorModule]
 })
 export class CreateQuestionsModule {}

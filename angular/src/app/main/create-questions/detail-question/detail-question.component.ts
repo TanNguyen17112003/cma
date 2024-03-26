@@ -18,6 +18,7 @@ export class DetailQuestionComponent implements OnInit {
   typeList = ["Multiple choice", "True/False", "Short answer", "Essay"];
   questionType: string = "Multiple choice";
   showDialog = false;
+  showSuccessDialog = false;
   questionPoint: number = 1;
   questionContent: string = "";
   rightAnswer: string = "";
@@ -37,11 +38,7 @@ export class DetailQuestionComponent implements OnInit {
   setWrongAnswers(answer: string) {
     this.wrongAnswers.push(answer);
   }
-  // deleteQuestionWithConfirmation() {
-  //   if (window.confirm('Are you sure you want to delete this question?')) {
-  //     this.questionService.deleteQuestion(this.questionInput);
-  //   }
-  // }
+  
   openDialog() {
     this.showDialog = true;
   }
@@ -58,6 +55,9 @@ export class DetailQuestionComponent implements OnInit {
     this.questionService.setContentQuestion(this.questionInput, this.questionContent);
     this.questionService.setRightAnswer(this.questionInput, this.rightAnswer);
     this.questionService.setWrongAnswers(this.questionInput, this.wrongAnswers);
-    alert(`Congratulations! Question ${this.id} has been created successfully!`);
+    this.showSuccessDialog = true;
+    setTimeout(() => {
+      this.showSuccessDialog = false;
+  }, 2000);
   }
 }
