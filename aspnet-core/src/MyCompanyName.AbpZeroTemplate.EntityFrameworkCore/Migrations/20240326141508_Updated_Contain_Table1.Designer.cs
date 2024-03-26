@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MyCompanyName.AbpZeroTemplate.EntityFrameworkCore;
 
@@ -11,9 +12,10 @@ using MyCompanyName.AbpZeroTemplate.EntityFrameworkCore;
 namespace MyCompanyName.AbpZeroTemplate.Migrations
 {
     [DbContext(typeof(AbpZeroTemplateDbContext))]
-    partial class AbpZeroTemplateDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240326141508_Updated_Contain_Table1")]
+    partial class Updated_Contain_Table1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1780,18 +1782,10 @@ namespace MyCompanyName.AbpZeroTemplate.Migrations
                     b.Property<long?>("CreatorUserId")
                         .HasColumnType("bigint");
 
-                    b.Property<int?>("QuesionId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("QuestionId")
-                        .HasColumnType("int");
-
                     b.Property<int>("TopicId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("QuesionId");
 
                     b.HasIndex("TopicId");
 
@@ -2489,19 +2483,11 @@ namespace MyCompanyName.AbpZeroTemplate.Migrations
 
             modelBuilder.Entity("MyCompanyName.AbpZeroTemplate.ERP.Contain", b =>
                 {
-                    b.HasOne("MyCompanyName.AbpZeroTemplate.ERP.Question", "Question")
-                        .WithMany("Contains")
-                        .HasForeignKey("QuesionId");
-
-                    b.HasOne("MyCompanyName.AbpZeroTemplate.ERP.Topic", "Topic")
+                    b.HasOne("MyCompanyName.AbpZeroTemplate.ERP.Topic", null)
                         .WithMany("Contains")
                         .HasForeignKey("TopicId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Question");
-
-                    b.Navigation("Topic");
                 });
 
             modelBuilder.Entity("MyCompanyName.AbpZeroTemplate.ERP.Exam", b =>
@@ -2639,8 +2625,6 @@ namespace MyCompanyName.AbpZeroTemplate.Migrations
 
             modelBuilder.Entity("MyCompanyName.AbpZeroTemplate.ERP.Question", b =>
                 {
-                    b.Navigation("Contains");
-
                     b.Navigation("ExamFile");
                 });
 
