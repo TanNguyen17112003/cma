@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MyCompanyName.AbpZeroTemplate.EntityFrameworkCore;
 
@@ -11,9 +12,10 @@ using MyCompanyName.AbpZeroTemplate.EntityFrameworkCore;
 namespace MyCompanyName.AbpZeroTemplate.Migrations
 {
     [DbContext(typeof(AbpZeroTemplateDbContext))]
-    partial class AbpZeroTemplateDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240326110412_Added_Contain_Table")]
+    partial class Added_Contain_Table
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1780,9 +1782,6 @@ namespace MyCompanyName.AbpZeroTemplate.Migrations
                     b.Property<long?>("CreatorUserId")
                         .HasColumnType("bigint");
 
-                    b.Property<int?>("QuesionId")
-                        .HasColumnType("int");
-
                     b.Property<int>("QuestionId")
                         .HasColumnType("int");
 
@@ -1791,7 +1790,7 @@ namespace MyCompanyName.AbpZeroTemplate.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("QuesionId");
+                    b.HasIndex("QuestionId");
 
                     b.HasIndex("TopicId");
 
@@ -2491,7 +2490,9 @@ namespace MyCompanyName.AbpZeroTemplate.Migrations
                 {
                     b.HasOne("MyCompanyName.AbpZeroTemplate.ERP.Question", "Question")
                         .WithMany("Contains")
-                        .HasForeignKey("QuesionId");
+                        .HasForeignKey("QuestionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("MyCompanyName.AbpZeroTemplate.ERP.Topic", "Topic")
                         .WithMany("Contains")

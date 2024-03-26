@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace MyCompanyName.AbpZeroTemplate.FileUpload
+namespace MyCompanyName.AbpZeroTemplate.ERP
 {
     public class ExamFileConsts
     {

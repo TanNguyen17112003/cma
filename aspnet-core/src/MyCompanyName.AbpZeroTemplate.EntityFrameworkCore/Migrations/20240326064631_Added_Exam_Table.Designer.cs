@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MyCompanyName.AbpZeroTemplate.EntityFrameworkCore;
 
@@ -11,9 +12,10 @@ using MyCompanyName.AbpZeroTemplate.EntityFrameworkCore;
 namespace MyCompanyName.AbpZeroTemplate.Migrations
 {
     [DbContext(typeof(AbpZeroTemplateDbContext))]
-    partial class AbpZeroTemplateDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240326064631_Added_Exam_Table")]
+    partial class Added_Exam_Table
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1766,38 +1768,6 @@ namespace MyCompanyName.AbpZeroTemplate.Migrations
                     b.ToTable("AppChatMessages");
                 });
 
-            modelBuilder.Entity("MyCompanyName.AbpZeroTemplate.ERP.Contain", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<DateTime>("CreationTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<long?>("CreatorUserId")
-                        .HasColumnType("bigint");
-
-                    b.Property<int?>("QuesionId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("QuestionId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("TopicId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("QuesionId");
-
-                    b.HasIndex("TopicId");
-
-                    b.ToTable("PbContains");
-                });
-
             modelBuilder.Entity("MyCompanyName.AbpZeroTemplate.ERP.Exam", b =>
                 {
                     b.Property<int>("Id")
@@ -1843,6 +1813,12 @@ namespace MyCompanyName.AbpZeroTemplate.Migrations
                     b.Property<long?>("CreatorUserId")
                         .HasColumnType("bigint");
 
+                    b.Property<long?>("DeleterUserId")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime?>("DeletionTime")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasMaxLength(255)
@@ -1853,13 +1829,16 @@ namespace MyCompanyName.AbpZeroTemplate.Migrations
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)");
 
-                    b.Property<int>("QuestionId")
-                        .HasColumnType("int");
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("LastModificationTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long?>("LastModifierUserId")
+                        .HasColumnType("bigint");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("QuestionId")
-                        .IsUnique();
 
                     b.ToTable("PbExamFiles");
                 });
@@ -2487,23 +2466,6 @@ namespace MyCompanyName.AbpZeroTemplate.Migrations
                     b.Navigation("LastModifierUser");
                 });
 
-            modelBuilder.Entity("MyCompanyName.AbpZeroTemplate.ERP.Contain", b =>
-                {
-                    b.HasOne("MyCompanyName.AbpZeroTemplate.ERP.Question", "Question")
-                        .WithMany("Contains")
-                        .HasForeignKey("QuesionId");
-
-                    b.HasOne("MyCompanyName.AbpZeroTemplate.ERP.Topic", "Topic")
-                        .WithMany("Contains")
-                        .HasForeignKey("TopicId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Question");
-
-                    b.Navigation("Topic");
-                });
-
             modelBuilder.Entity("MyCompanyName.AbpZeroTemplate.ERP.Exam", b =>
                 {
                     b.HasOne("MyCompanyName.AbpZeroTemplate.ERP.Topic", "Topic")
@@ -2513,17 +2475,6 @@ namespace MyCompanyName.AbpZeroTemplate.Migrations
                         .IsRequired();
 
                     b.Navigation("Topic");
-                });
-
-            modelBuilder.Entity("MyCompanyName.AbpZeroTemplate.ERP.ExamFile", b =>
-                {
-                    b.HasOne("MyCompanyName.AbpZeroTemplate.ERP.Question", "Question")
-                        .WithOne("ExamFile")
-                        .HasForeignKey("MyCompanyName.AbpZeroTemplate.ERP.ExamFile", "QuestionId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Question");
                 });
 
             modelBuilder.Entity("MyCompanyName.AbpZeroTemplate.MultiTenancy.Payments.SubscriptionPayment", b =>
@@ -2637,17 +2588,8 @@ namespace MyCompanyName.AbpZeroTemplate.Migrations
                     b.Navigation("Tokens");
                 });
 
-            modelBuilder.Entity("MyCompanyName.AbpZeroTemplate.ERP.Question", b =>
-                {
-                    b.Navigation("Contains");
-
-                    b.Navigation("ExamFile");
-                });
-
             modelBuilder.Entity("MyCompanyName.AbpZeroTemplate.ERP.Topic", b =>
                 {
-                    b.Navigation("Contains");
-
                     b.Navigation("Exams");
                 });
 #pragma warning restore 612, 618
