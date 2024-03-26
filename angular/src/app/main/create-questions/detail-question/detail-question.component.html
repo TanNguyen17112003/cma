@@ -80,8 +80,10 @@
             <file-upload-component link="/" [id]="id"></file-upload-component>
         </div>
         <div class="d-flex gap-3 mt-3">
-            <button class="btn btn-danger" (click)="deleteQuestionWithConfirmation()">Hủy câu hỏi</button>
+            <button class="btn btn-danger" (click)="openDialog()">Hủy câu hỏi</button>
             <button class="btn btn-primary" (click)="setData()">Xong</button>
+            <app-erase-diaog *ngIf="showDialog" (confirm)="deleteQuestion()" (deny)="closeDialog()"></app-erase-diaog>
+            <app-success-dialog *ngIf="showSuccessDialog"></app-success-dialog>
         </div>
     </div>
 </div>
