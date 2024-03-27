@@ -1,4 +1,4 @@
-﻿using Abp.Application.Services.Dto;
+﻿/*using Abp.Application.Services.Dto;
 using Abp.Application.Services;
 using System;
 using System.Collections.Generic;
@@ -48,3 +48,4 @@ namespace MyCompanyName.AbpZeroTemplate.ERP
     }
 
 }
+*/

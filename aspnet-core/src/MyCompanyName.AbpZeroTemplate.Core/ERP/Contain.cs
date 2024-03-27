@@ -11,15 +11,9 @@ using Stripe;
 namespace MyCompanyName.AbpZeroTemplate.ERP
 {
     [Table("PbContains")]
-    public class Contain : CreationAuditedEntity<int>
+    public class Contain : FullAuditedEntity
     {
-        [ForeignKey("QuesionId")]
-        public virtual Question Question { get; set; }
-        public virtual int QuestionId { get; set; }
-
-        [ForeignKey("TopicId")]
-        public virtual Topic Topic { get; set; }
-        public virtual int TopicId { get; set; }
+   
 
     }
 

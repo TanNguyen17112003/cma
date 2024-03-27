@@ -19,9 +19,9 @@ namespace MyCompanyName.AbpZeroTemplate.EntityFrameworkCore
     public class AbpZeroTemplateDbContext : AbpZeroDbContext<Tenant, Role, User, AbpZeroTemplateDbContext>, IAbpPersistedGrantDbContext
     {
         /* Define an IDbSet for each entity of the application */
-        public virtual DbSet<Contain> Contains { get; set; }
+        //public virtual DbSet<Contain> Contains { get; set; }
         public virtual DbSet<Exam> Exams { get; set; }
-        public virtual DbSet<Topic> Topics { get; set; }
+        //public virtual DbSet<Topic> Topics { get; set; }
         public virtual DbSet<Question> Questions { get; set; }
         public virtual DbSet<ExamFile> ExamFiles { get; set; }
         public virtual DbSet<BinaryObject> BinaryObjects { get; set; }
