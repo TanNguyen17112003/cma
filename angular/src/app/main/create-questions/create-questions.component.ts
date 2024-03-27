@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { QuestionService } from './service/question.service';
 import { TabsetComponent } from 'ngx-bootstrap/tabs';
-import { DetailQuestionComponent } from './detail-question/detail-question.component';
+import { ExamDetailComponent } from './exam-detail/exam-detail.component';
 
 @Component({
   selector: 'app-create-questions',
@@ -10,7 +10,9 @@ import { DetailQuestionComponent } from './detail-question/detail-question.compo
 })
 export class CreateQuestionsComponent implements OnInit {
   @ViewChild("staticTabs") staticTabs?: TabsetComponent;
+  @ViewChild("exam-detail-component") examConfig?: ExamDetailComponent;
   questionTabDisabled = true;
+  examId = null;
   
   constructor(public questionService: QuestionService) { }
 
@@ -21,7 +23,7 @@ export class CreateQuestionsComponent implements OnInit {
     this.questionTabDisabled = !e;
   }
 
-  navigateToQuestionTab() {
+  async saveConfig() {
     this.staticTabs.tabs[1].active = true;
   }
 }

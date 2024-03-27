@@ -1,5 +1,7 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Injector, OnInit, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { AppComponentBase } from '@shared/common/app-component-base';
+import { CreateExamInput, ExamServiceProxy } from '@shared/service-proxies/service-proxies';
 
 @Component({
   selector: 'exam-detail-component',
@@ -21,8 +23,8 @@ export class ExamDetailComponent implements OnInit {
   @Output() validEvent = new EventEmitter<boolean>();
   selectedSubject = null;
   selectedType = null;
-  startDate: Date = null;
-  endDate: Date = null;
+  startDate = null;
+  endDate = null;
   time = 0;
   isRandom = false;
   multipleAttempt = false;
@@ -37,8 +39,8 @@ export class ExamDetailComponent implements OnInit {
   requirePassword = false
   password = ""
   
-
-  constructor() { }
+  constructor(private _examService: ExamServiceProxy) { 
+  }
 
   ngOnInit(): void {
   }
@@ -60,5 +62,27 @@ export class ExamDetailComponent implements OnInit {
   checkValid() {
     if (this.selectedSubject != null && this.selectedType != null && this.time > 0 && this.startDate != null && this.endDate != null) this.validEvent.emit(true);
     else this.validEvent.emit(false);
+  }
+
+  post() {
+    let id = Math.floor(Math.random() * 1000000000)
+    let request = new CreateExamInput({
+      "id": id,
+      "working_time": this.time,
+      "mix_question": this.isRandom,
+      "redo_num": this.attemptCount,
+      "point_is_cal": this.selectedPolicy,
+      "review_wrong_ans": this.allowMistakeReview,
+      "review_right_ans": this.allowCorrectReview,
+      "view_question_one": this.oncePerQuestion,
+      "require_password": this.password,
+      "start_date": this.startDate,
+      "end_date": this.endDate,
+      "exam_type": this.selectedType,
+      "course": this.selectedSubject.name
+    })
+    
+    this._examService.addExam(request)
+    return id;
   }
 }
