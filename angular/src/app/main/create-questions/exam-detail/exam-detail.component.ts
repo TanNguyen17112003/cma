@@ -22,6 +22,7 @@ export class ExamDetailComponent implements OnInit {
   policies = ["Cao nhất", "Lần nộp cuối cùng", "Trung bình"];
 
   @Output() validEvent = new EventEmitter<boolean>();
+  id = null;
   selectedSubject = null;
   selectedType = null;
   startDate = null;
@@ -47,6 +48,7 @@ export class ExamDetailComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.id = Math.floor(Math.random() * 1000000000);
   }
 
   setSubject(e: any) {
@@ -72,7 +74,7 @@ export class ExamDetailComponent implements OnInit {
     let id = Math.floor(Math.random() * 1000000000)
     this.questionService.setExamId(id);
     let request = new CreateExamInput({
-      "id": id,
+      "id": this.id,
       "working_time": this.time,
       "mix_question": this.isRandom,
       "redo_num": this.attemptCount,
@@ -88,6 +90,6 @@ export class ExamDetailComponent implements OnInit {
     })
     
     this._examService.addExam(request)
-    return id;
+    return this.id;
   }
 }

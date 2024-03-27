@@ -10,7 +10,7 @@ import { ExamDetailComponent } from './exam-detail/exam-detail.component';
 })
 export class CreateQuestionsComponent implements OnInit {
   @ViewChild("staticTabs") staticTabs?: TabsetComponent;
-  @ViewChild("exam-detail-component") examConfig?: ExamDetailComponent;
+  @ViewChild("examConfig") examConfig?: ExamDetailComponent;
   questionTabDisabled = true;
   examId = null;
   
@@ -23,7 +23,8 @@ export class CreateQuestionsComponent implements OnInit {
     this.questionTabDisabled = !e;
   }
 
-  async saveConfig() {
+  saveConfig() {
+    this.examId = this.examConfig.post();
     this.staticTabs.tabs[1].active = true;
   }
 }
