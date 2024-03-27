@@ -11,7 +11,7 @@ export class DetailQuestionComponent implements OnInit {
 
   constructor(
     public questionService: QuestionService,
-    public questionServiceTest: QuestionServiceProxy  
+    private __questionServiceTest: QuestionServiceProxy  
   ) { }
 
   ngOnInit(): void {
@@ -27,22 +27,18 @@ export class DetailQuestionComponent implements OnInit {
   questionContent: string = "";
   rightAnswer: string = "";
   wrongAnswers: string[] = [];
+  isProssibleDeleted = false;
   setQuestionType(type: string) {
+    this.questionContent = "";
+    this.wrongAnswers = [];
     this.questionType = type;
   }
   setQuestionPoint(point: number) {
     this.questionPoint = point;
   }
-  setQuestionContent(content: string) {
-    this.questionContent = content;
-  }
-  setRightAnswer(answer: string) {
-    this.rightAnswer = answer;
-  }
   setWrongAnswers(answer: string) {
     this.wrongAnswers.push(answer);
   }
-  
   openDialog() {
     this.showDialog = true;
   }
@@ -58,30 +54,33 @@ export class DetailQuestionComponent implements OnInit {
   //   answer: this.rightAnswer
   // })
   checkValidData () {
-    if (this.questionType === 'Multiple choice' || this.questionType === 'True/False') {
-      if (this.questionContent === "") {
-        return false;
-      }
-      if (this.rightAnswer === "") {
-        return false;
-      }
-      return true;
+    if (this.questionType === 'Multiple choice') {
+      return (this.questionContent && this.rightAnswer && this.wrongAnswers.length === 3 && this.questionPoint)
+    }
+    if (this.questionType === 'True/False') {
+      return (this.questionContent && this.rightAnswer && this.wrongAnswers.length >= 1 && this.questionPoint)
     }
     else {
-      if (this.questionContent === "") {
-        return false;
-      }
-      return true;
+      return this.questionContent && this.questionPoint;
     }
   }
-  setData() {
-    this.questionServiceTest.createQuestion(new CreateQuestionInput({
-      content: "test",
-      answer: "answer"
-    }))
-    this.showSuccessDialog = true;
-    setTimeout(() => {
-      this.showSuccessDialog = false;
-    }, 2000);
+    setData() {
+      let mockData = new CreateQuestionInput({
+        point: this.questionPoint,
+        question_type: this.questionType,
+        content: this.questionContent,
+        answer: this.rightAnswer,
+        examId: 1
+      });
+      this.isProssibleDeleted = true
+      this.__questionServiceTest.createQuestion(mockData)
+      .subscribe(() => {
+          this.showSuccessDialog = true;
+          setTimeout(() => {
+            this.showSuccessDialog = false;
+          }, 2000);
+      }, error => {
+          console.error('There was an error creating the question', error);
+      });
   }
 }
