@@ -1,4 +1,4 @@
-﻿using Abp.Application.Services.Dto;
+﻿/*using Abp.Application.Services.Dto;
 using Abp.Domain.Repositories;
 using AutoMapper;
 using Stripe;
@@ -66,3 +66,4 @@ namespace MyCompanyName.AbpZeroTemplate.ERP
     }
 
 }
+*/

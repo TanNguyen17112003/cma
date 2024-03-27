@@ -12,43 +12,33 @@ using Abp.Linq.Extensions;
 using Abp.Authorization;
 using MyCompanyName.AbpZeroTemplate.Authorization;
 using MyCompanyName.AbpZeroTemplate.ERP;
+using Microsoft.EntityFrameworkCore;
 
 namespace MyCompanyName.AbpZeroTemplate.ERP
 {
     public class ExamAppService : AbpZeroTemplateAppServiceBase, IExamAppService
     {
-        private readonly IRepository<Exam,int> _examRepository;
-        private readonly IRepository<Topic> _topicRepository;
+        private readonly IRepository<Exam, int> _examRepository;
 
-        public ExamAppService(IRepository<Exam> examRepository, IRepository<Topic> topicRepository)
+        public ExamAppService(IRepository<Exam> examRepository)
         {
             _examRepository = examRepository;
-            _topicRepository = topicRepository;
         }
 
         public ListResultDto<ExamListDto> GetExams(GetExamsInput input)
         {
             var exam = _examRepository
                 .GetAll()
-                .OrderBy(p => p.Time_amount)
-                .ThenBy(p => p.Join)
+                .Include(p => p.Questions)
                 .ToList();
 
             return new ListResultDto<ExamListDto>(ObjectMapper.Map<List<ExamListDto>>(exam));
         }
 
-        public async Task<ExamInTopicListDto> AddExam(CreateExamInput input)
+        public async Task AddExam(CreateExamInput input)
         {
-            var topic = _topicRepository.Get(input.TopicId);
-            await _topicRepository.EnsureCollectionLoadedAsync(topic, p => p.Exams);
-
             var exam = ObjectMapper.Map<Exam>(input);
-            topic.Exams.Add(exam);
-
-            //Get auto increment Id of the new Phone by saving to database
-            await CurrentUnitOfWork.SaveChangesAsync();
-
-            return ObjectMapper.Map<ExamInTopicListDto>(exam);
+            await _examRepository.InsertAsync(exam);
         }
 
         public async Task DeleteExam(EntityDto input)
@@ -56,19 +46,19 @@ namespace MyCompanyName.AbpZeroTemplate.ERP
             await _examRepository.DeleteAsync(input.Id);
         }
 
-        public async Task<GetExamForEditOutput> GetExamForEdit(GetExamForEditInput input)
+        /*public async Task<GetExamForEditOutput> GetExamForEdit(GetExamForEditInput input)
         {
             var exam = await _examRepository.GetAsync(input.Id);
             return ObjectMapper.Map<GetExamForEditOutput>(exam);
-        }
+        }*/
 
-        public async Task EditExam(EditExamInput input)
+        /*public async Task EditExam(EditExamInput input)
         {
             var exam = await _examRepository.GetAsync(input.Id);
             exam.Time_amount = input.Time_amount;
             exam.Join = input.Join;
             await _examRepository.UpdateAsync(exam);
-        }
+        }*/
 
     }
 

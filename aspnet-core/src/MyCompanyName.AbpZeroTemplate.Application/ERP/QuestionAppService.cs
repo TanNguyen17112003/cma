@@ -13,16 +13,19 @@ using Abp.Authorization;
 using MyCompanyName.AbpZeroTemplate.Authorization;
 using MyCompanyName.AbpZeroTemplate.ERP;
 using Microsoft.EntityFrameworkCore;
+using NUglify.Helpers;
 
 namespace MyCompanyName.AbpZeroTemplate.ERP
 {
     public class QuestionAppService : AbpZeroTemplateAppServiceBase, IQuestionAppService
     {
         private readonly IRepository<Question> _questionRepository;
+        private readonly IRepository<Exam> _examRepository;
 
-        public QuestionAppService(IRepository<Question> questionRepository)
+        public QuestionAppService(IRepository<Question> questionRepository, IRepository<Exam> examRepository)
         {
             _questionRepository = questionRepository;
+            _examRepository = examRepository;
         }
 
         public ListResultDto<QuestionListDto> GetQuestions(GetQuestionsInput input)
@@ -42,10 +45,18 @@ namespace MyCompanyName.AbpZeroTemplate.ERP
             return new ListResultDto<QuestionListDto>(ObjectMapper.Map<List<QuestionListDto>>(question));
         }
 
-        public async Task CreateQuestion(CreateQuestionInput input)
+        public async Task<QuestionInExamListDto> CreateQuestion(CreateQuestionInput input)
         {
+            var exam = _examRepository.Get(input.ExamId);
+            await _examRepository.EnsureCollectionLoadedAsync(exam, p => p.Questions);
+
             var question = ObjectMapper.Map<Question>(input);
-            await _questionRepository.InsertAsync(question);
+            exam.Questions.Add(question);
+
+            //Get auto increment Id of the new Phone by saving to database
+            await CurrentUnitOfWork.SaveChangesAsync();
+
+            return ObjectMapper.Map<QuestionInExamListDto>(question);
         }
 
         public async Task DeleteQuestion(EntityDto input)
@@ -53,20 +64,34 @@ namespace MyCompanyName.AbpZeroTemplate.ERP
             await _questionRepository.DeleteAsync(input.Id);
         }
 
-        public async Task<GetQuestionForEditOutput> GetQuestionForEdit(GetQuestionForEditInput input)
+        public async Task UpdateQuestionById(UpdateQuestionInputById input)
         {
             var question = await _questionRepository.GetAsync(input.Id);
-            return ObjectMapper.Map<GetQuestionForEditOutput>(question);
-        }
+            if (!string.IsNullOrEmpty(input.Answer))
+            {
+                // Update the Answer only if it is not null or empty
+                question.Answer = input.Answer;
+            }
+            if (!string.IsNullOrEmpty(input.Content))
+            {
+                // Update the Answer only if it is not null or empty
+                question.Answer = input.Content;
+            }
+          
+            if (!string.IsNullOrEmpty(input.Question_type))
+            {
+                // Update the Answer only if it is not null or empty
+                question.Question_type = input.Question_type;
+            }
 
-        public async Task EditQuestion(EditQuestionInput input)
-        {
-            var question = await _questionRepository.GetAsync(input.Id);
-            question.Content = input.Content;
-            question.Answer = input.Answer;
+            if (input.Point.HasValue)
+            {
+                // Update the Answer only if it is not null or empty
+                question.Point = input.Point.Value;
+            }
+
             await _questionRepository.UpdateAsync(question);
         }
-
     }
 
 }

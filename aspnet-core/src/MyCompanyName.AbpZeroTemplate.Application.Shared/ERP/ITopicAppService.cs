@@ -1,4 +1,4 @@
-﻿using Abp.Application.Services.Dto;
+﻿/*using Abp.Application.Services.Dto;
 using Abp.Application.Services;
 using System;
 using System.Collections.Generic;
@@ -98,9 +98,30 @@ namespace MyCompanyName.AbpZeroTemplate.ERP
 
     public class ExamInTopicListDto : CreationAuditedEntityDto<int>
     {
-        public int Time_amount { get; set; }
+        public int Working_time { get; set; }
 
-        public string Join { get; set; }
+        public bool Mix_question { get; set; }
+
+        public int Redo_num { get; set; }
+
+        public string Point_is_cal { get; set; }
+
+        public bool Review_wrong_ans { get; set; }
+
+        public bool Review_right_ans { get; set; }
+
+        public bool View_question_one { get; set; }
+
+        public string Require_password { get; set; }
+
+        public DateTime Start_date { get; set; }
+
+        public DateTime End_date { get; set; }
+
+        public string Exam_type { get; set; }
+
+
+        public string Course { get; set; }
     }
 
     public enum TopicType : byte
@@ -109,3 +130,4 @@ namespace MyCompanyName.AbpZeroTemplate.ERP
     }
 
 }
+*/

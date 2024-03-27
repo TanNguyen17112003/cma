@@ -179,30 +179,30 @@ namespace MyCompanyName.AbpZeroTemplate
             configuration.CreateMap<Question, QuestionListDto>();
             //configuration.CreateMap<AddPhoneInput, Phone>();
             configuration.CreateMap<CreateQuestionInput, Question>();
-            configuration.CreateMap<Question, GetQuestionForEditOutput>();
-            //configuration.CreateMap<Phone, PhoneInPersonListDto>();
+            //configuration.CreateMap<Question, GetQuestionForEditOutput>();
+            configuration.CreateMap<Question, QuestionInExamListDto>();
 
             // Topics 
-            configuration.CreateMap<Topic, TopicListDto>();
+            /*configuration.CreateMap<Topic, TopicListDto>();
             //configuration.CreateMap<AddPhoneInput, Phone>();
             configuration.CreateMap<CreateTopicInput, Topic>();
             configuration.CreateMap<Topic, GetTopicForEditOutput>();
-            configuration.CreateMap<Exam, ExamInTopicListDto>();
+            configuration.CreateMap<Exam, ExamInTopicListDto>();*/
 
             // Exams 
             configuration.CreateMap<Exam, ExamListDto>();
             //configuration.CreateMap<AddPhoneInput, Phone>();
             configuration.CreateMap<CreateExamInput, Exam>();
-            configuration.CreateMap<Exam, GetExamForEditOutput>();
+            //configuration.CreateMap<Exam, GetExamForEditOutput>();
             //configuration.CreateMap<Exam, ExamInTopicListDto>();
 
 
             // Contains 
-            configuration.CreateMap<Contain, ContainListDto>();
+            /*configuration.CreateMap<Contain, ContainListDto>();
             //configuration.CreateMap<AddPhoneInput, Phone>();
             configuration.CreateMap<CreateContainInput, Contain>();
             //configuration.CreateMap<Exam, GetExamForEditOutput>();
-            //configuration.CreateMap<Exam, ExamInTopicListDto>();
+            //configuration.CreateMap<Exam, ExamInTopicListDto>();*/
 
         }
     }

@@ -19,23 +19,13 @@ namespace MyCompanyName.AbpZeroTemplate.ERP
         [MaxLength(MaxQuestion_linkLength)]
         public virtual string Question_link { get; set; }
 
-        [Required]
-        [MaxLength(MaxAnswer_linkLength)]
-        public virtual string Answer_link { get; set; }
-
-        [Required]
-        public virtual int Max_question { get; set; }
-
-        [Required]
-        public virtual TopicType Type { get; set; }
-
-        public virtual ICollection<Exam> Exams { get; set; }
-
-        public virtual ICollection<Contain> Contains { get; set; }
+  
+  
 
     }
 
-    public enum TopicType : byte {
+    public enum TopicType : byte
+    {
         Essay, MultiChoice, Mix, Group
     }
 
