@@ -11,7 +11,7 @@ export class DetailQuestionComponent implements OnInit {
 
   constructor(
     public questionService: QuestionService,
-    private __questionServiceTest: QuestionServiceProxy  
+    private _questionServiceTest: QuestionServiceProxy  
   ) { }
 
   ngOnInit(): void {
@@ -70,10 +70,10 @@ export class DetailQuestionComponent implements OnInit {
         question_type: this.questionType,
         content: this.questionContent,
         answer: this.rightAnswer,
-        examId: 1
+        examId: this.questionService.getExamId()
       });
       this.isProssibleDeleted = true
-      this.__questionServiceTest.createQuestion(mockData)
+      this._questionServiceTest.createQuestion(mockData)
       .subscribe(() => {
           this.showSuccessDialog = true;
           setTimeout(() => {

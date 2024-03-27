@@ -16477,6 +16477,7 @@ export interface ICreateExamFileInput {
 }
 
 export class CreateExamInput implements ICreateExamInput {
+    id!: number;
     working_time!: number;
     mix_question!: boolean;
     redo_num!: number;
@@ -16501,6 +16502,7 @@ export class CreateExamInput implements ICreateExamInput {
 
     init(_data?: any) {
         if (_data) {
+            this.id = _data["id"];
             this.working_time = _data["working_time"];
             this.mix_question = _data["mix_question"];
             this.redo_num = _data["redo_num"];
@@ -16525,6 +16527,7 @@ export class CreateExamInput implements ICreateExamInput {
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
         data["working_time"] = this.working_time;
         data["mix_question"] = this.mix_question;
         data["redo_num"] = this.redo_num;
@@ -16542,6 +16545,7 @@ export class CreateExamInput implements ICreateExamInput {
 }
 
 export interface ICreateExamInput {
+    id: number;
     working_time: number;
     mix_question: boolean;
     redo_num: number;

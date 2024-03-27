@@ -52,6 +52,9 @@ namespace MyCompanyName.AbpZeroTemplate.ERP
     public class CreateExamInput
     {
         [Required]
+        public int Id { get; set; }
+
+        [Required]
         public int Working_time { get; set; }
 
         [Required]

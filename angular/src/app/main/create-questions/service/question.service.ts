@@ -6,7 +6,7 @@ import { Question } from '../model/question';
 })
 export class QuestionService {
   questionList = [];
-
+  exam_id = null;
   constructor() { }
   addQuestion() {
     const id = this.questionList.length + 1;
@@ -20,7 +20,12 @@ export class QuestionService {
     }
     this.questionList.push(newQuestion);
   }
-
+  setExamId(id: number) {
+    this.exam_id = id;
+  }
+  getExamId() {
+    return this.exam_id;
+  }
   deleteQuestion(question: Question) {
     let index = this.questionList.indexOf(question);
     this.questionList.splice(index, 1);

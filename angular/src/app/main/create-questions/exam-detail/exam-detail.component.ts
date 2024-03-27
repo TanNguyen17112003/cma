@@ -1,5 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Injector, OnInit, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { AppComponentBase } from '@shared/common/app-component-base';
+import { CreateExamInput, ExamServiceProxy } from '@shared/service-proxies/service-proxies';
+import { QuestionService } from '../service/question.service';
 
 @Component({
   selector: 'exam-detail-component',
@@ -18,11 +21,13 @@ export class ExamDetailComponent implements OnInit {
 
   policies = ["Cao nhất", "Lần nộp cuối cùng", "Trung bình"];
 
+  @Output() validEvent = new EventEmitter<boolean>();
   selectedSubject = null;
   selectedType = null;
-  isRandom = false;
-  isTimed = false;
+  startDate = null;
+  endDate = null;
   time = 0;
+  isRandom = false;
   multipleAttempt = false;
   attemptCount = 0;
   selectedPolicy = null;
@@ -34,24 +39,55 @@ export class ExamDetailComponent implements OnInit {
   oncePerQuestion = false
   requirePassword = false
   password = ""
-  startDate = null
-  endDate = null
-
-  constructor() { }
+  
+  constructor(
+    private _examService: ExamServiceProxy,
+    public questionService: QuestionService
+    ) { 
+  }
 
   ngOnInit(): void {
   }
 
   setSubject(e: any) {
-    this.selectedSubject = e
+    this.selectedSubject = e;
+    this.checkValid();
   }
 
   setType(e: any) {
-    this.selectedType = e
+    this.selectedType = e;
+    this.checkValid();
   }
 
   setPolicy(e: any) {
     this.selectedPolicy = e
   }
 
+  checkValid() {
+    if (this.selectedSubject != null && this.selectedType != null && this.time > 0 && this.startDate != null && this.endDate != null) this.validEvent.emit(true);
+    else this.validEvent.emit(false);
+  }
+
+  post() {
+    let id = Math.floor(Math.random() * 1000000000)
+    this.questionService.setExamId(id);
+    let request = new CreateExamInput({
+      "id": id,
+      "working_time": this.time,
+      "mix_question": this.isRandom,
+      "redo_num": this.attemptCount,
+      "point_is_cal": this.selectedPolicy,
+      "review_wrong_ans": this.allowMistakeReview,
+      "review_right_ans": this.allowCorrectReview,
+      "view_question_one": this.oncePerQuestion,
+      "require_password": this.password,
+      "start_date": this.startDate,
+      "end_date": this.endDate,
+      "exam_type": this.selectedType,
+      "course": this.selectedSubject.name
+    })
+    
+    this._examService.addExam(request)
+    return id;
+  }
 }
