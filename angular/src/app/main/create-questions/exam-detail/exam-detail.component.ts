@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
 @Component({
@@ -18,11 +18,13 @@ export class ExamDetailComponent implements OnInit {
 
   policies = ["Cao nhất", "Lần nộp cuối cùng", "Trung bình"];
 
+  @Output() validEvent = new EventEmitter<boolean>();
   selectedSubject = null;
   selectedType = null;
-  isRandom = false;
-  isTimed = false;
+  startDate: Date = null;
+  endDate: Date = null;
   time = 0;
+  isRandom = false;
   multipleAttempt = false;
   attemptCount = 0;
   selectedPolicy = null;
@@ -34,8 +36,7 @@ export class ExamDetailComponent implements OnInit {
   oncePerQuestion = false
   requirePassword = false
   password = ""
-  startDate = null
-  endDate = null
+  
 
   constructor() { }
 
@@ -43,15 +44,21 @@ export class ExamDetailComponent implements OnInit {
   }
 
   setSubject(e: any) {
-    this.selectedSubject = e
+    this.selectedSubject = e;
+    this.checkValid();
   }
 
   setType(e: any) {
-    this.selectedType = e
+    this.selectedType = e;
+    this.checkValid();
   }
 
   setPolicy(e: any) {
     this.selectedPolicy = e
   }
 
+  checkValid() {
+    if (this.selectedSubject != null && this.selectedType != null && this.time > 0 && this.startDate != null && this.endDate != null) this.validEvent.emit(true);
+    else this.validEvent.emit(false);
+  }
 }
