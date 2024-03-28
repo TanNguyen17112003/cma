@@ -28,7 +28,7 @@ using MyCompanyName.AbpZeroTemplate.Chat.Dto;
 using MyCompanyName.AbpZeroTemplate.DynamicEntityProperties.Dto;
 using MyCompanyName.AbpZeroTemplate.Editions;
 using MyCompanyName.AbpZeroTemplate.Editions.Dto;
-using MyCompanyName.AbpZeroTemplate.FileUpload;
+using MyCompanyName.AbpZeroTemplate.ERP;
 using MyCompanyName.AbpZeroTemplate.Friendships;
 using MyCompanyName.AbpZeroTemplate.Friendships.Cache;
 using MyCompanyName.AbpZeroTemplate.Friendships.Dto;
@@ -168,12 +168,41 @@ namespace MyCompanyName.AbpZeroTemplate
             /* ADD YOUR OWN CUSTOM AUTOMAPPER MAPPINGS HERE */
 
             
-            // PhoneBook (we will comment out other lines when the new DTOs are added)
+            // ExamFile 
             configuration.CreateMap<ExamFile, ExamFileListDto>();
             //configuration.CreateMap<AddPhoneInput, Phone>();
             configuration.CreateMap<CreateExamFileInput, ExamFile>();
-            //configuration.CreateMap<Person, GetPersonForEditOutput>();
-            //configuration.CreateMap<Phone, PhoneInPersonListDto>();
+            configuration.CreateMap<ExamFile, GetExamFileForEditOutput>();
+            configuration.CreateMap<ExamFile, ExamFileInQuestionListDto>();
+
+            // Question 
+            configuration.CreateMap<Question, QuestionListDto>();
+            //configuration.CreateMap<AddPhoneInput, Phone>();
+            configuration.CreateMap<CreateQuestionInput, Question>();
+            //configuration.CreateMap<Question, GetQuestionForEditOutput>();
+            configuration.CreateMap<Question, QuestionInExamListDto>();
+
+            // Topics 
+            /*configuration.CreateMap<Topic, TopicListDto>();
+            //configuration.CreateMap<AddPhoneInput, Phone>();
+            configuration.CreateMap<CreateTopicInput, Topic>();
+            configuration.CreateMap<Topic, GetTopicForEditOutput>();
+            configuration.CreateMap<Exam, ExamInTopicListDto>();*/
+
+            // Exams 
+            configuration.CreateMap<Exam, ExamListDto>();
+            //configuration.CreateMap<AddPhoneInput, Phone>();
+            configuration.CreateMap<CreateExamInput, Exam>();
+            //configuration.CreateMap<Exam, GetExamForEditOutput>();
+            //configuration.CreateMap<Exam, ExamInTopicListDto>();
+
+
+            // Contains 
+            /*configuration.CreateMap<Contain, ContainListDto>();
+            //configuration.CreateMap<AddPhoneInput, Phone>();
+            configuration.CreateMap<CreateContainInput, Contain>();
+            //configuration.CreateMap<Exam, GetExamForEditOutput>();
+            //configuration.CreateMap<Exam, ExamInTopicListDto>();*/
 
         }
     }

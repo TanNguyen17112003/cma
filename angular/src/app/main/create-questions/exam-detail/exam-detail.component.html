@@ -1,8 +1,8 @@
 <div class="content d-flex flex-column flex-column-fluid">
-    <div class="mb-15">
+    <div class="mb-10">
         <div class="btn-group me-5" dropdown>
-            <button dropdownToggle type="button" class="btn btn-light border border-dark text-start dropdown-toggle" aria-controls="dropdown-basic">
-                {{selectedSubject ? selectedSubject.name : "Môn học"}} <span class="caret"></span>
+            <button dropdownToggle type="button" class="btn btn-light border border-dark dropdown-toggle p-2" aria-controls="dropdown-basic">
+                {{selectedSubject ? selectedSubject.name : "Môn học"}} <label class="form-text text-danger">*</label><span class="caret"></span>
             </button>
             <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-basic">
                 <li role="menuitem" *ngFor="let item of subjects">
@@ -13,8 +13,8 @@
             </ul>
         </div>
         <div class="btn-group" dropdown>
-            <button dropdownToggle type="button" class="btn btn-light border border-dark text-start dropdown-toggle" aria-controls="dropdown-basic">
-                {{selectedType ? selectedType : "Đề thi"}} <span class="caret"></span>
+            <button dropdownToggle type="button" class="btn btn-light border border-dark dropdown-toggle p-2" aria-controls="dropdown-basic">
+                {{selectedType ? selectedType : "Đề thi"}} <label class="form-text text-danger">*</label><span class="caret"></span>
             </button>
             <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-basic">
                 <li role="menuitem" *ngFor="let item of type">
@@ -25,17 +25,38 @@
             </ul>
         </div>
     </div>
-    <div class="input-group mb-10">
+    <div class="hstack gap-5 w-50 mb-5">
+        <div>
+            <label class="form-text">Ngày bắt đầu</label>
+            <label class="form-text text-danger">*</label>
+            <input type="text"
+            placeholder="Ngày bắt đầu"
+            class="form-control me-5"
+            (bsValueChange)="checkValid()"
+            [(ngModel)]="startDate"
+            bsDatepicker>
+        </div>
+        <div>
+            <label class="form-text">Ngày kết thúc</label>
+            <label class="form-text text-danger">*</label>
+            <input type="text"
+            placeholder="Ngày kết thúc"
+            class="form-control me-5"
+            (bsValueChange)="checkValid()"
+            [(ngModel)]="endDate"
+            bsDatepicker>
+        </div>
+    </div>
+    <div class="input-group mb-5" style="width: 15rem;">
+        <label class="form-text">Thời gian</label><label class="form-text text-danger">*</label>
+        <input class="form-control form-control-sm mx-2 rounded" type="number" [(ngModel)]="time" (change)="checkValid()">
+        <label class="form-text">phút</label>
+    </div>
+    <div class="input-group mb-5">
         <input class="form-check-input me-2 mt-1" type="checkbox" [(ngModel)]="isRandom">
         <label class="form-text">Trộn câu hỏi</label>
     </div>
-    <div class="input-group mb-10" style="width: 15rem;">
-        <input class="form-check-input me-2 mt-1" type="checkbox" [(ngModel)]="isTimed">
-        <label class="form-text">Thời gian</label>
-        <input class="form-control form-control-sm mx-2 rounded"type="number" [(ngModel)]="time" [disabled]="!isTimed">
-        <label class="form-text">phút</label>
-    </div>
-    <div class="input-group mb-10 p-5 border border-secondary rounded">
+    <div class="input-group mb-5 p-5 border border-secondary rounded">
         <div class="input-group mb-5" style="width: 18rem;">
             <input class="form-check-input me-2 mt-1" type="checkbox" [(ngModel)]="multipleAttempt">
             <label class="form-text">Cho phép làm lại</label>
@@ -58,7 +79,7 @@
             </div>
         </div>
     </div>
-    <div class="input-group mb-10 p-5 border border-secondary rounded">
+    <div class="input-group mb-5 p-5 border border-secondary rounded">
         <div class="input-group mb-5">
             <input class="form-check-input me-2 mt-1" type="checkbox" [(ngModel)]="allowMistakeReview">
             <label class="form-text">Cho phép sinh viên xem lại câu sai</label>
@@ -80,35 +101,17 @@
             </div>
         </div>
     </div>
-    <div class="input-group mb-10">
+    <div class="input-group mb-5">
         <input class="form-check-input me-2 mt-1" type="checkbox" [(ngModel)]="oncePerQuestion">
         <label class="form-text">Xem mỗi câu hỏi một lần</label>
     </div>
-    <div class="input-group mb-10 p-5 border border-secondary rounded">
+    <div class="input-group p-5 border border-secondary rounded">
         <div class="input-group mb-5">
             <input class="form-check-input me-2 mt-1" type="checkbox" [(ngModel)]="requirePassword">
             <label class="form-text">Yêu cầu mật khẩu</label>
         </div>
         <div class="input-group" style="width: 18rem;">
             <input class="form-control form-control-sm mx-2 rounded" type="text" [(ngModel)]="password" [disabled]="!requirePassword">
-        </div>
-    </div>
-    <div class="hstack gap-5 w-50">
-        <div>
-            <label class="form-text">Ngày bắt đầu</label>
-            <input type="text"
-            placeholder="Ngày bắt đầu"
-            class="form-control me-5"
-            [(ngModel)]="startDate"
-            bsDatepicker>
-        </div>
-        <div>
-            <label class="form-text">Ngày kết thúc</label>
-            <input type="text"
-            placeholder="Ngày kết thúc"
-            class="form-control me-5"
-            [(ngModel)]="endDate"
-            bsDatepicker>
         </div>
     </div>
 </div>

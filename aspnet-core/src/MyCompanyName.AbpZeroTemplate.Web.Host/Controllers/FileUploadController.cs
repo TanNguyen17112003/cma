@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Hosting;
 using MyCompanyName.AbpZeroTemplate.Authorization;
-using MyCompanyName.AbpZeroTemplate.FileUpload;
+using MyCompanyName.AbpZeroTemplate.ERP;
 using MyCompanyName.AbpZeroTemplate.Web.Models;
 using System;
 using System.IO;
@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 
 namespace MyCompanyName.AbpZeroTemplate.Web.Controllers
 {
+    [AbpMvcAuthorize(AppPermissions.Pages_FileUpload)]
     public class FileUploadController : AbpZeroTemplateControllerBase
     {
         private readonly IHostEnvironment _env;
@@ -33,7 +34,7 @@ namespace MyCompanyName.AbpZeroTemplate.Web.Controllers
             }
             var filePath = Path.Combine(dir, uniqueFileName);
             await image.CopyToAsync(new FileStream(filePath, FileMode.Create));
-            SaveImagePathToDb(model.Description, filePath);
+            SaveImagePathToDb(model.Description, filePath, model.QuestionId);
             return uniqueFileName;
         }
 
@@ -46,10 +47,10 @@ namespace MyCompanyName.AbpZeroTemplate.Web.Controllers
                    + Path.GetExtension(fileName);
         }
 
-        private async void SaveImagePathToDb(string description, string filepath)
+        private async void SaveImagePathToDb(string description, string filepath, int questionId)
         {
             //todo: description and file path to db
-            await _examFileAppService.CreateExamFile(new CreateExamFileInput(description, filepath));
+            await _examFileAppService.CreateExamFile(new CreateExamFileInput(questionId,description, filepath));
         }
     }
 

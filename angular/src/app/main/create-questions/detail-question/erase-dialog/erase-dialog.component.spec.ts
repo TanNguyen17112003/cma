@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { EraseDiaogComponent } from './erase-diaog.component';
+import { EraseDialogComponent } from './erase-dialog.component';
 
-describe('EraseDiaogComponent', () => {
-  let component: EraseDiaogComponent;
-  let fixture: ComponentFixture<EraseDiaogComponent>;
+describe('EraseDialogComponent', () => {
+  let component: EraseDialogComponent;
+  let fixture: ComponentFixture<EraseDialogComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ EraseDiaogComponent ]
+      declarations: [ EraseDialogComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(EraseDiaogComponent);
+    fixture = TestBed.createComponent(EraseDialogComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
