@@ -31,7 +31,7 @@ export class ExamDetailComponent implements OnInit {
   isRandom = false;
   multipleAttempt = false;
   attemptCount = 0;
-  selectedPolicy = null;
+  selectedPolicy = this.policies[2];
   allowMistakeReview = false;
   allowMistakeReviewLast = false;
   allowMistakeReviewAll = false;
@@ -71,8 +71,9 @@ export class ExamDetailComponent implements OnInit {
   }
 
   post() {
-    let id = Math.floor(Math.random() * 1000000000)
-    this.questionService.setExamId(id);
+    let ids = Math.floor(Math.random() * 1000000000)
+    this.id = ids;
+    this.questionService.setExamId(ids);
     let request = new CreateExamInput({
       "id": this.id,
       "working_time": this.time,
@@ -88,8 +89,7 @@ export class ExamDetailComponent implements OnInit {
       "exam_type": this.selectedType,
       "course": this.selectedSubject.name
     })
-    
-    this._examService.addExam(request)
+    this._examService.addExam(request).subscribe();
     return this.id;
   }
 }

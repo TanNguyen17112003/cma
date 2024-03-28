@@ -13,7 +13,7 @@ export class CreateQuestionsComponent implements OnInit {
   @ViewChild("examConfig") examConfig?: ExamDetailComponent;
   questionTabDisabled = true;
   examId = null;
-  
+  showSuccessDialog = false;
   constructor(public questionService: QuestionService) { }
 
   ngOnInit() {
@@ -24,7 +24,14 @@ export class CreateQuestionsComponent implements OnInit {
   }
 
   saveConfig() {
-    this.examId = this.examConfig.post();
-    this.staticTabs.tabs[1].active = true;
+    if (!this.staticTabs.tabs[1].active) {
+      this.examId = this.examConfig.post();
+      this.staticTabs.tabs[1].active = true;
+      return;
+    }
+    this.showSuccessDialog = true;
+    setTimeout(() => {
+      this.showSuccessDialog = false;
+    }, 3000);
   }
 }
