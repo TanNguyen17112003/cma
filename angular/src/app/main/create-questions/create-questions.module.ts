@@ -9,12 +9,12 @@ import { DetailQuestionComponent } from './detail-question/detail-question.compo
 import { ExamDetailComponent } from './exam-detail/exam-detail.component';
 import { EraseDialogComponent } from './detail-question/erase-dialog/erase-dialog.component';
 import { SuccessDialogComponent } from './detail-question/success-dialog/success-dialog.component';
-
+import { SubheaderModule } from '@app/shared/common/sub-header/subheader.module';
 
 
 
 @NgModule({
   declarations: [CreateQuestionsComponent, FileUploadComponent, ExamDetailComponent, DetailQuestionComponent, EraseDialogComponent, SuccessDialogComponent],
-  imports: [AppSharedModule, CreateQuestionsRoutingModule, EditorModule]
+  imports: [AppSharedModule, SubheaderModule, CreateQuestionsRoutingModule, EditorModule]
 })
 export class CreateQuestionsModule {}

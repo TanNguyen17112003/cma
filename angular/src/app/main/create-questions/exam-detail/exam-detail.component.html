@@ -1,7 +1,7 @@
 <div class="content d-flex flex-column flex-column-fluid">
     <div class="mb-10">
         <div class="btn-group me-5" dropdown>
-            <button dropdownToggle type="button" class="btn btn-light border border-dark text-start dropdown-toggle" aria-controls="dropdown-basic">
+            <button dropdownToggle type="button" class="btn btn-light border border-dark dropdown-toggle p-2" aria-controls="dropdown-basic">
                 {{selectedSubject ? selectedSubject.name : "Môn học"}} <label class="form-text text-danger">*</label><span class="caret"></span>
             </button>
             <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-basic">
@@ -13,7 +13,7 @@
             </ul>
         </div>
         <div class="btn-group" dropdown>
-            <button dropdownToggle type="button" class="btn btn-light border border-dark text-start dropdown-toggle" aria-controls="dropdown-basic">
+            <button dropdownToggle type="button" class="btn btn-light border border-dark dropdown-toggle p-2" aria-controls="dropdown-basic">
                 {{selectedType ? selectedType : "Đề thi"}} <label class="form-text text-danger">*</label><span class="caret"></span>
             </button>
             <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-basic">
