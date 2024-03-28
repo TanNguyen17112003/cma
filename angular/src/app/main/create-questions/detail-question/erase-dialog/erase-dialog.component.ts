@@ -3,7 +3,7 @@ import { Component, Output, OnInit } from '@angular/core';
 import { trigger, transition, style, animate } from '@angular/animations';
 import { EventEmitter } from '@angular/core';
 @Component({
-  selector: 'app-erase-diaog',
+  selector: 'app-erase-dialog',
   animations: [
     trigger('dialog', [
       transition(':enter', [
@@ -18,10 +18,10 @@ import { EventEmitter } from '@angular/core';
       ])
     ])
   ],
-  templateUrl: './erase-diaog.component.html',
-  styleUrls: ['./erase-diaog.component.css']
+  templateUrl: './erase-dialog.component.html',
+  styleUrls: ['./erase-dialog.component.css']
 })
-export class EraseDiaogComponent implements OnInit {
+export class EraseDialogComponent implements OnInit {
 
   constructor() { }
 
