@@ -2,11 +2,13 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { QuestionService } from './service/question.service';
 import { TabsetComponent } from 'ngx-bootstrap/tabs';
 import { ExamDetailComponent } from './exam-detail/exam-detail.component';
+import { appModuleAnimation } from '@shared/animations/routerTransition';
 
 @Component({
   selector: 'app-create-questions',
   templateUrl: './create-questions.component.html',
-  styleUrls: ['./create-questions.component.css']
+  styleUrls: ['./create-questions.component.css'],
+  animations: [appModuleAnimation()],
 })
 export class CreateQuestionsComponent implements OnInit {
   @ViewChild("staticTabs") staticTabs?: TabsetComponent;
