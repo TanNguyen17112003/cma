@@ -5,12 +5,12 @@ import { ExamDetailComponent } from './exam-detail/exam-detail.component';
 import { appModuleAnimation } from '@shared/animations/routerTransition';
 
 @Component({
-  selector: 'app-create-questions',
-  templateUrl: './create-questions.component.html',
-  styleUrls: ['./create-questions.component.css'],
+  selector: 'app-view-exam',
+  templateUrl: './view-exam.component.html',
+  styleUrls: ['./view-exam.component.css'],
   animations: [appModuleAnimation()],
 })
-export class CreateQuestionsComponent implements OnInit {
+export class ViewExamComponent implements OnInit {
   @ViewChild("staticTabs") staticTabs?: TabsetComponent;
   @ViewChild("examConfig") examConfig?: ExamDetailComponent;
   questionTabDisabled = true;
@@ -22,7 +22,7 @@ export class CreateQuestionsComponent implements OnInit {
   }
   
   enable(e: boolean) {
-    this.questionTabDisabled = !e;
+    this.questionTabDisabled = e;
   }
 
   saveConfig() {

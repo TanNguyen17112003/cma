@@ -1,6 +1,4 @@
-import { Component, EventEmitter, Injector, OnInit, Output } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { AppComponentBase } from '@shared/common/app-component-base';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { CreateExamInput, ExamServiceProxy } from '@shared/service-proxies/service-proxies';
 import { QuestionService } from '../service/question.service';
 

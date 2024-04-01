@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { QuestionService } from '../service/question.service';
 import { Question } from '../model/question';
 import { CreateQuestionInput, QuestionServiceProxy } from '@shared/service-proxies/service-proxies';
+
 @Component({
   selector: 'app-detail-question',
   templateUrl: './detail-question.component.html',

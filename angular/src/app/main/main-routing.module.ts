@@ -13,9 +13,9 @@ import { RouterModule } from '@angular/router';
                         // data: { permission: 'Pages.Tenant.Dashboard' },
                     },
                     {
-                        path: 'create-questions',
-                        loadChildren: () => import('./create-questions/create-questions.module').then(m => m.CreateQuestionsModule)
-                        // data: {permission: 'Page.Tenant.CreateQuestions'}
+                        path: 'exam',
+                        loadChildren: () => import('./exam/exam.module').then(m => m.ExamModule)
+                        // data: {permission: 'Page.Tenant.ViewExam'}
                     },                    
                     { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
                     { path: '**', redirectTo: 'dashboard' },
