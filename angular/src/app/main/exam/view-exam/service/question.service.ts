@@ -12,6 +12,7 @@ export class QuestionService {
     const id = this.questionList.length + 1;
     const newQuestion: Question = {
       id: id,
+      examId: this.exam_id,
       questionType: "Multiple choice",
       questionPoint: 1,
       questionContent: "",

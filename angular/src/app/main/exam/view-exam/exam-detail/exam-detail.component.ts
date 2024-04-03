@@ -1,6 +1,8 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { CreateExamInput, ExamServiceProxy } from '@shared/service-proxies/service-proxies';
 import { QuestionService } from '../service/question.service';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'exam-detail-component',
@@ -20,7 +22,7 @@ export class ExamDetailComponent implements OnInit {
   policies = ["Cao nhất", "Lần nộp cuối cùng", "Trung bình"];
 
   @Output() validEvent = new EventEmitter<boolean>();
-  id = null;
+  id=null;
   selectedSubject = null;
   selectedType = null;
   startDate = null;
@@ -46,7 +48,7 @@ export class ExamDetailComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.id = Math.floor(Math.random() * 1000000000);
+    
   }
 
   setSubject(e: any) {
@@ -62,18 +64,13 @@ export class ExamDetailComponent implements OnInit {
   setPolicy(e: any) {
     this.selectedPolicy = e
   }
-
   checkValid() {
-    if (this.selectedSubject != null && this.selectedType != null && this.time > 0 && this.startDate != null && this.endDate != null) this.validEvent.emit(true);
+    if (this.selectedSubject != null && this.selectedType != null && this.time === 0 && this.startDate != null && this.endDate != null) this.validEvent.emit(true);
     else this.validEvent.emit(false);
   }
 
-  post() {
-    let ids = Math.floor(Math.random() * 1000000000)
-    this.id = ids;
-    this.questionService.setExamId(ids);
+  post() : Observable<any>{
     let request = new CreateExamInput({
-      "id": this.id,
       "working_time": this.time,
       "mix_question": this.isRandom,
       "redo_num": this.attemptCount,
@@ -87,7 +84,8 @@ export class ExamDetailComponent implements OnInit {
       "exam_type": this.selectedType,
       "course": this.selectedSubject.name
     })
-    this._examService.addExam(request).subscribe();
-    return this.id;
+    return this._examService.addExam(request).pipe(
+      map(response => response)
+    );
   }
 }

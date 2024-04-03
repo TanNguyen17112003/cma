@@ -1,7 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { QuestionService } from '../service/question.service';
 import { Question } from '../model/question';
-import { CreateQuestionInput, QuestionServiceProxy } from '@shared/service-proxies/service-proxies';
 
 @Component({
   selector: 'app-detail-question',
@@ -11,8 +10,7 @@ import { CreateQuestionInput, QuestionServiceProxy } from '@shared/service-proxi
 export class DetailQuestionComponent implements OnInit {
 
   constructor(
-    public questionService: QuestionService,
-    private _questionServiceTest: QuestionServiceProxy  
+    public questionService: QuestionService
   ) { }
 
   ngOnInit(): void {
@@ -33,12 +31,23 @@ export class DetailQuestionComponent implements OnInit {
     this.questionContent = "";
     this.wrongAnswers = [];
     this.questionType = type;
+    this.questionService.setTypeQuestion(this.questionInput, this.questionType);
+  }
+  setQuestionContent(content: string) {
+    this.questionContent = content;
+    this.questionService.setContentQuestion(this.questionInput, this.questionContent);
   }
   setQuestionPoint(point: number) {
-    this.questionPoint = point;
+    this.questionService.setPointQuestion(this.questionInput, point);
+  }
+  setRightAnswer(answer: string) {
+    this.rightAnswer = answer;
+    this.questionService.setRightAnswer(this.questionInput, this.rightAnswer);
+    console.log(this.questionService.questionList)
   }
   setWrongAnswers(answer: string) {
     this.wrongAnswers.push(answer);
+    this.questionService.setWrongAnswers(this.questionInput, this.wrongAnswers);
   }
   openDialog() {
     this.showDialog = true;
@@ -66,22 +75,8 @@ export class DetailQuestionComponent implements OnInit {
     }
   }
     setData() {
-      let mockData = new CreateQuestionInput({
-        point: this.questionPoint,
-        question_type: this.questionType,
-        content: this.questionContent,
-        answer: this.rightAnswer,
-        examId: this.questionService.getExamId()
-      });
+      
       this.isProssibleDeleted = true
-      this._questionServiceTest.createQuestion(mockData)
-      .subscribe(() => {
-          this.showSuccessDialog = true;
-          setTimeout(() => {
-            this.showSuccessDialog = false;
-          }, 2000);
-      }, error => {
-          console.error('There was an error creating the question', error);
-      });
+     
   }
 }
