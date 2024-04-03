@@ -14,7 +14,9 @@ export class ExamDetailComponent implements OnInit {
 
   @Output() validEvent = new EventEmitter<boolean>();
   
-  constructor(public examService: ExamConfigService) { }
+  constructor(
+    public examService: ExamConfigService,
+  ) { }
 
   ngOnInit(): void {}
 

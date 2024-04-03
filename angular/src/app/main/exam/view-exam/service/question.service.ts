@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Question } from '../model/question';
-import { ExamListDto, QuestionInExamListDto } from '@shared/service-proxies/service-proxies';
+import { QuestionInExamListDto } from '@shared/service-proxies/service-proxies';
 
 @Injectable({
   providedIn: 'root'

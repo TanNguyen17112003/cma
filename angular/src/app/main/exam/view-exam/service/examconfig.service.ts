@@ -6,43 +6,23 @@ import { DateTime } from 'luxon';
   providedIn: 'root'
 })
 export class ExamConfigService {
-    course: string;
-    examType: string;
-    startDate: Date;
-    endDate: Date;
-    time: number;
-    isRandom: boolean;
-    multipleAttempt: boolean;
-    attemptCount: number;
-    gradingPolicy: string;
-    allowMistakeReview: boolean;
-    allowMistakeReviewLast: boolean;
-    allowMistakeReviewAll: boolean;
-    allowCorrectReview: boolean;
-    allowCorrectReviewLast: boolean;
-    oncePerQuestion: boolean;
-    requirePassword: boolean;
-    password: string;
-
-    constructor() {
-        this.course = null;
-        this.examType = null;
-        this.startDate = null;
-        this.endDate = null;
-        this.time = 0;
-        this.isRandom = false;
-        this.multipleAttempt = false;
-        this.attemptCount = 0;
-        this.gradingPolicy = "Trung bình";
-        this.allowMistakeReview = false;
-        this.allowMistakeReviewLast = false;
-        this.allowMistakeReviewAll = false;
-        this.allowCorrectReview = false;
-        this.allowCorrectReviewLast = false;
-        this.oncePerQuestion = false
-        this.requirePassword = false
-        this.password = ""
-    }
+    course: string = null;
+    examType: string = null;
+    startDate: Date = null;
+    endDate: Date = null;
+    time = 0;
+    isRandom = false;
+    multipleAttempt = false;
+    attemptCount = 1;
+    gradingPolicy = "Trung bình";
+    allowMistakeReview = false;
+    allowMistakeReviewLast = false;
+    allowMistakeReviewAll = false;
+    allowCorrectReview = false;
+    allowCorrectReviewLast = false;
+    oncePerQuestion = false
+    requirePassword = false;
+    password = "";
 
     setData(exam: ExamListDto) {
         console.log(exam);

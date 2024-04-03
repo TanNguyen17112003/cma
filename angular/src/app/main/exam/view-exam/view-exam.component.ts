@@ -1,12 +1,13 @@
 import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { QuestionService } from './service/question.service';
+import { ExamConfigService } from './service/examconfig.service';
 import { TabsetComponent } from 'ngx-bootstrap/tabs';
 import { ExamDetailComponent } from './exam-detail/exam-detail.component';
 import { appModuleAnimation } from '@shared/animations/routerTransition';
 import { CreateExamInput, CreateQuestionInput, ExamListDto, ExamServiceProxy, QuestionServiceProxy } from '@shared/service-proxies/service-proxies';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ExamConfigService } from './service/examconfig.service';
+
 
 @Component({
   selector: 'app-view-exam',
@@ -91,7 +92,7 @@ export class ViewExamComponent implements OnInit {
       this.showSuccessDialog = true;
       setTimeout(() => {
         this.showSuccessDialog = false;
-        this.router.navigate(['..'], {relativeTo: this.route})
+        this.router.navigate(['app/main/exam'])
       }, 3000)
     }
   }
