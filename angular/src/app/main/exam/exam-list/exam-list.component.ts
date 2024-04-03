@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { PageChangedEvent } from 'ngx-bootstrap/pagination';
 import { ExamQueryService } from '../service/examquery.service';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-exam-list',
@@ -10,7 +11,11 @@ import { ExamQueryService } from '../service/examquery.service';
 export class ExamListComponent implements OnInit {
   totalItems = 0;
 
-  constructor(public examQueryService: ExamQueryService) {
+  constructor(
+    public examQueryService: ExamQueryService,
+    private router: Router,
+    private route: ActivatedRoute,
+  ) {
     this.totalItems = this.examQueryService.examList.value.length;
     this.examQueryService.examList.subscribe((value) => {
       this.updatePagedTests();
@@ -32,7 +37,9 @@ export class ExamListComponent implements OnInit {
     this.currentPage = event.page;
     this.updatePagedTests();
   }
-
+  viewExam(id: number) {
+    this.router.navigate(['view-exam/' + id], {relativeTo: this.route});
+  }
   ngOnInit(): void {
     this.updatePagedTests();
   }
