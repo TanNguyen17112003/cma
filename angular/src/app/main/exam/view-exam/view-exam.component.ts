@@ -4,7 +4,7 @@ import { ExamConfigService } from './service/examconfig.service';
 import { TabsetComponent } from 'ngx-bootstrap/tabs';
 import { ExamDetailComponent } from './exam-detail/exam-detail.component';
 import { appModuleAnimation } from '@shared/animations/routerTransition';
-import { CreateExamInput, CreateQuestionInput, ExamListDto, ExamServiceProxy, QuestionServiceProxy } from '@shared/service-proxies/service-proxies';
+import { CreateExamInput, CreateQuestionInput, ExamListDto, ExamServiceProxy, QuestionServiceProxy, UpdateQuestionInputById } from '@shared/service-proxies/service-proxies';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { ActivatedRoute, Router } from '@angular/router';
 
@@ -38,15 +38,18 @@ export class ViewExamComponent implements OnInit {
     ) { }
 
   ngOnInit() {
+    this.questionService.clear();
+    this.examService.clear();
     this.route.data.subscribe(data => {
-      let exam: ExamListDto = data["exam"];
-      this.questionService.clear();
-      for (let question of exam.questions) {
-        this.questionService.addQuestion(question);
+      if (data["exam"]) {
+        let exam: ExamListDto = data["exam"];
+        for (let question of exam.questions) {
+          this.questionService.addQuestion(question);
+        }
+        this.examService.setData(exam);
+        this.questionService.examId = exam.id;
+        this.examId = exam.id;
       }
-      this.examService.setData(exam);
-      this.questionService.examId = exam.id;
-      this.examId = exam.id;
     })
   }
   
@@ -72,21 +75,50 @@ export class ViewExamComponent implements OnInit {
   saveQuestions() {
     let error = false;
     for (let i of this.questionService.questionList) {
-      let question = new CreateQuestionInput({
-        id: i.id,
-        point: i.questionPoint,
-        question_type: i.questionType,
-        content: i.questionContent,
-        answer: i.rightAnswer,
-        examId: this.examId
-      });
-      this.questionProxy.createQuestion(question)
-      .subscribe(() => {
+      if (i.deleted && i.created) continue;
+      else if (i.deleted) {
+        this.questionProxy.deleteQuestion(i.id)
+        .subscribe(() => {
 
-      }, error => {
-          console.error('There was an error creating the question', error);
-          error = true;
-      });
+        }, error => {
+            console.error('There was an error deleting a question', error);
+            error = true;
+        });
+      }
+      else if (i.created) {
+        let question = new CreateQuestionInput({
+          id: i.id,
+          point: i.questionPoint,
+          question_type: i.questionType,
+          content: i.questionContent,
+          answer: i.rightAnswer,
+          examId: this.examId
+        });
+        this.questionProxy.createQuestion(question)
+        .subscribe(() => {
+  
+        }, error => {
+            console.error('There was an error creating a question', error);
+            error = true;
+        });
+      }
+      else {
+        let question = new UpdateQuestionInputById({
+          id: i.id,
+          point: i.questionPoint,
+          question_type: i.questionType,
+          content: i.questionContent,
+          answer: i.rightAnswer,
+          examId: this.examId
+        });
+        this.questionProxy.updateQuestionById(question)
+        .subscribe(() => {
+  
+        }, error => {
+            console.error('There was an error update a question', error);
+            error = true;
+        });
+      }
     }
     if (!error) {
       this.showSuccessDialog = true;
@@ -95,6 +127,10 @@ export class ViewExamComponent implements OnInit {
         this.router.navigate(['app/main/exam'])
       }, 3000)
     }
+  }
+
+  cancel() {
+    this.router.navigate(['app/main/exam'])
   }
 
   openModal(message: string) {

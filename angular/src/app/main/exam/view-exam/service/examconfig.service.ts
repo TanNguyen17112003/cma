@@ -54,8 +54,28 @@ export class ExamConfigService {
             require_password: this.password,
             start_date: DateTime.fromJSDate(this.startDate),
             end_date: DateTime.fromJSDate(this.endDate),
-            exam_type: this.course,
-            course: this.examType,
+            exam_type: this.examType,
+            course: this.course,
         })
+    }
+
+    clear() {
+        this.course = null;
+        this.examType= null;
+        this.startDate= null;
+        this.endDate = null;
+        this.time = 0;
+        this.isRandom = false;
+        this.multipleAttempt = false;
+        this.attemptCount = 1;
+        this.gradingPolicy = "Trung bình";
+        this.allowMistakeReview = false;
+        this.allowMistakeReviewLast = false;
+        this.allowMistakeReviewAll = false;
+        this.allowCorrectReview = false;
+        this.allowCorrectReviewLast = false;
+        this.oncePerQuestion = false
+        this.requirePassword = false;
+        this.password = "";
     }
 }

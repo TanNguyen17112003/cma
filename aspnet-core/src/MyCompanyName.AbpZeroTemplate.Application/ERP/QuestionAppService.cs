@@ -86,7 +86,7 @@ namespace MyCompanyName.AbpZeroTemplate.ERP
             if (!string.IsNullOrEmpty(input.Content))
             {
                 // Update the Answer only if it is not null or empty
-                question.Answer = input.Content;
+                question.Content = input.Content;
             }
           
             if (!string.IsNullOrEmpty(input.Question_type))

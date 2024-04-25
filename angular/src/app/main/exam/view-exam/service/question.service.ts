@@ -28,7 +28,8 @@ export class QuestionService {
         questionPoint: 1,
         questionContent: "",
         rightAnswer: "",
-        wrongAnswers: []
+        wrongAnswers: [],
+        created: true
       }
     }
     this.questionList.push(newQuestion);
@@ -41,9 +42,10 @@ export class QuestionService {
   }
   deleteQuestion(question: Question) {
     let index = this.questionList.indexOf(question);
-    this.questionList.splice(index, 1);
-    for (let i = 0; i < this.questionList.length; i++) {
-      this.questionList[i].id = i + 1;
+    if (this.questionList[index].created) {
+      this.questionList.splice(index, 1);
+    } else {
+      this.questionList[index].deleted = true;
     }
   }
 

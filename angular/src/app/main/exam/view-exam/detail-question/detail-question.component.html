@@ -1,4 +1,4 @@
-<div class="border p-5 rounded border-2 pt-5 m-3 bg-light">
+<div *ngIf="!questionInput.deleted" class="border p-5 rounded border-2 pt-5 m-3 bg-light">
     <div class="d-flex justify-content-between px-8">
         <h3 class="card-title text-dark font-weight-bold mb-1">Question {{questionInput.id}}</h3>
         <button class="btn btn-danger" (click)="openDialog()">Hủy câu hỏi</button>

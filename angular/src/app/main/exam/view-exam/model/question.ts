@@ -5,4 +5,6 @@ export class Question {
     questionContent: string;
     rightAnswer: string;
     wrongAnswers: string[];
+    created?: boolean;
+    deleted?: boolean;
 }
